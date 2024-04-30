@@ -1,6 +1,5 @@
 library(seqinr)
 
-
 trad =    c(UUU="F", UUC="F", UUA="L", UUG="L",
             UCU="S", UCC="S", UCA="S", UCG="S",
             UAU="Y", UAC="Y", UAA="STOP", UAG="STOP",
@@ -33,11 +32,55 @@ df = data.frame(
   stringsAsFactors = FALSE
 )
 
+df_mut1 = data.frame(
+  Mutation1 = character(),
+  Codon1 = character(),
+  Amino1 = character(),
+  Gene1 = character(),
+  stringsAsFactors = FALSE
+)
+
+df_mut2 = data.frame(
+  Mutation2 = character(),
+  Codon2 = character(),
+  Amino2 = character(),
+  Gene2 = character(),
+  stringsAsFactors = FALSE
+)
+
+df_mut3 = data.frame(
+  Mutation3 = character(),
+  Codon3 = character(),
+  Amino3 = character(),
+  Gene3 = character(),
+  stringsAsFactors = FALSE
+)
+
+df_mut4 = data.frame(
+  Mutation4 = character(),
+  Codon4 = character(),
+  Amino4 = character(),
+  Gene4 = character(),
+  stringsAsFactors = FALSE
+)
+
+# Sequence Wuhan
 fRef = read.fasta("sequence.txt")
 length(fRef)
 
-fB117 = read.fasta("sequence_mexico_primera.txt")
-length(fB117)
+# Mutaciones México 
+fMx1 = read.fasta("sequence_mexico_primera_2020.txt")
+length(Fmx1)
+
+fMx2 = read.fasta("sequence_mexico_segunda_2021.txt")
+length(Fmx2)
+
+fMx3 = read.fasta("sequence_mexico_tercera_2022.txt")
+length(Fmx3)
+
+fMx4 = read.fasta("sequence_mexico_cuarta_2023.txt")
+length(Fmx4)
+
 
 cat("Procesando ", as.integer(length(fB117)/12), " genomas \n")
 
@@ -48,6 +91,7 @@ for (i in seq(1,length(fRef),1)){
   atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
   geneName = atributos[which(atributos=="gene")+1] 
   genRef = ToARN( fRef[[i]] )  
+  genMut = ToARN(fMut1[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
   cat("#",geneName)
   for (k in seq(i, length(fB117), 12)){
     
@@ -86,6 +130,21 @@ for (i in seq(1,length(fRef),1)){
 head(df)
 nrow(df)
 
+library(ggplot2)
+
+
+# Graficar Mutaciones 1..2..3..4
+
+
+p = ggplot(df)
+p = p + aes(x=Mutation, fill=Mutation, label=after_stat(count))
+p = p + ggtitle("Mutaciones de sustitución")
+p = p + labs(x="Mutation", y="Frecuencia", fill="Frecuencia")
+p = p + geom_bar(stat = "count")
+p = p + geom_text(stat = "count", vjust=1.5)
+#p = p + facet_grid(~Gene)
+p
+
 library(dplyr)
 dfgraph = filter(
   summarise(
@@ -106,29 +165,11 @@ dfgraph = dfgraph[1:20, ]
 head(dfgraph)
 nrow(dfgraph)
 
-# Verificar si dfgraph se ha creado correctamente
-if (!exists("dfgraph")) {
-  stop("El dataframe dfgraph no se ha creado correctamente.")
-}
-
-library(ggplot2)
-
-# Crear el primer gráfico
-p = ggplot(dfgraph)
-p = p + aes(x=Amino, y=Cuenta, fill=Amino, label=Cuenta)
-p = p + ggtitle("Cambio de Aminoácidos")
-p = p + labs(x="Amino", y="Frecuencia", fill="Frecuencia")
-p = p + geom_point(stat = "identity")
-p = p + geom_text(stat = "identity", vjust=1.5)
-p = p + facet_grid(~Gene, scales="free", space="free_x")
-p
-
-# Crear el segundo gráfico
 p2 = ggplot(dfgraph)
 p2 = p2 + aes(x=Amino, y=Cuenta, fill=Amino, label=Cuenta)
 p2 = p2 + ggtitle("Cambio de Aminoácidos")
 p2 = p2 + labs(x="Amino", y="Frecuencia", fill="Frecuencia")
-p2 = p2 + geom_point(stat = "identity")
+p2 = p2 + geom_bar(stat = "identity")
 p2 = p2 + geom_text(stat = "identity", vjust=1.5)
 p2 = p2 + facet_grid(~Gene, scales="free", space="free_x")
 p2
