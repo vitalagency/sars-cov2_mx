@@ -1,4 +1,3 @@
-
 library(seqinr)
 
 
@@ -34,7 +33,7 @@ df = data.frame(
   stringsAsFactors = FALSE
 )
 
-fRef = read.fasta("sequence_wuhan.txt")
+fRef = read.fasta("sequence.txt")
 length(fRef)
 
 fB117 = read.fasta("sequence_mexico_primera.txt")
@@ -87,18 +86,6 @@ for (i in seq(1,length(fRef),1)){
 head(df)
 nrow(df)
 
-library(ggplot2)
-
-p = ggplot(df)
-p = p + aes(x=Mutation, y=after_stat(count), fill=Mutation, label=after_stat(count))
-p = p + ggtitle("Mutaciones de sustitución")
-p = p + labs(x="Mutation", y="Frecuencia", fill="Frecuencia")
-p = p + geom_point()
-p = p + geom_text(vjust=-0.5)
-#p = p + facet_grid(~Gene)
-p
-
-
 library(dplyr)
 dfgraph = filter(
   summarise(
@@ -119,6 +106,24 @@ dfgraph = dfgraph[1:20, ]
 head(dfgraph)
 nrow(dfgraph)
 
+# Verificar si dfgraph se ha creado correctamente
+if (!exists("dfgraph")) {
+  stop("El dataframe dfgraph no se ha creado correctamente.")
+}
+
+library(ggplot2)
+
+# Crear el primer gráfico
+p = ggplot(dfgraph)
+p = p + aes(x=Amino, y=Cuenta, fill=Amino, label=Cuenta)
+p = p + ggtitle("Cambio de Aminoácidos")
+p = p + labs(x="Amino", y="Frecuencia", fill="Frecuencia")
+p = p + geom_point(stat = "identity")
+p = p + geom_text(stat = "identity", vjust=1.5)
+p = p + facet_grid(~Gene, scales="free", space="free_x")
+p
+
+# Crear el segundo gráfico
 p2 = ggplot(dfgraph)
 p2 = p2 + aes(x=Amino, y=Cuenta, fill=Amino, label=Cuenta)
 p2 = p2 + ggtitle("Cambio de Aminoácidos")
@@ -127,4 +132,3 @@ p2 = p2 + geom_point(stat = "identity")
 p2 = p2 + geom_text(stat = "identity", vjust=1.5)
 p2 = p2 + facet_grid(~Gene, scales="free", space="free_x")
 p2
-
