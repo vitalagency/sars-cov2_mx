@@ -1,7 +1,6 @@
 
 library(seqinr)
 
-# DEMO COMMIT VITAL
 
 trad =    c(UUU="F", UUC="F", UUA="L", UUG="L",
             UCU="S", UCC="S", UCA="S", UCG="S",
