@@ -94,7 +94,7 @@ for (i in seq(1,length(fRef),1)){
   anotaciones = attr(fRef[[i]], "Annot") 
   atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
   geneName = atributos[which(atributos=="gene")+1] 
-  genRef = ToARN( fRef[[i]] )  
+  genRef = ToARN(fRef[[i]])  
   genMut = ToARN(fMut1[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
   cat("#",geneName)
   for (k in seq(i, length(fB117), 12)){
