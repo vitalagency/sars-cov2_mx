@@ -65,6 +65,7 @@ df_mut4 = data.frame(
   stringsAsFactors = FALSE
 )
 
+
 # Sequence Wuhan
 fRef = read.fasta("mx1_sequence")
 length(fRef)
@@ -99,7 +100,7 @@ for (i in seq(1,length(fRef),1)){
   cat("#",geneName)
   for (k in seq(i, length(fB117), 12)){
     
-    genfB117 = ToARN( fRef[[k]] )  
+    genfRMx = ToARN( fRef[[k]] )  
     cat(i, k, length(genRef), length(genfB117), "\n")
     
     if (length(genRef) == length(genfB117)){
@@ -110,16 +111,16 @@ for (i in seq(1,length(fRef),1)){
       if (length(dif) > 0){
         for (x in dif){
           cat(i,k)
-          muta = paste(genRef[x],"to",genfB117[x], sep="") 
+          muta = paste(genRef[x],"to",genfRMx[x], sep="") 
           inicioCodon = x - (x-1)%%3 
           numCodon = as.integer((x-1)/3+1) 
           codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
-          codonfB117 = paste(genfB117[inicioCodon], genfB117[inicioCodon+1], genfB117[inicioCodon+2],sep="")
-          codonChange = paste(codonOri,"to",codonfB117, sep="")
-          aminoChange = paste(trad[codonOri],numCodon,trad[codonfB117], sep="")
+          codonfRMx = paste(genfRMx[inicioCodon], genfRMx[inicioCodon+1], genfRMx[inicioCodon+2],sep="")
+          codonChange = paste(codonOri,"to",codonfRMx, sep="")
+          aminoChange = paste(trad[codonOri],numCodon,trad[codonfRMx], sep="")
           cat(i,k,geneName, codonChange, aminoChange)
           
-          if (!is.na(trad[codonfB117]) && trad[codonOri]!=trad[codonfB117]){
+          if (!is.na(trad[codonfRMx]) && trad[codonOri]!=trad[codonfRMx]){
             obs = list(muta,codonChange,aminoChange,geneName)
             df[nObs,] = obs 
             nObs = nObs+1
