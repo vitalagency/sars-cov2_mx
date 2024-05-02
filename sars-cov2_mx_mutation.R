@@ -40,6 +40,7 @@ df_mut1 = data.frame(
   stringsAsFactors = FALSE
 )
 
+
 df_mut2 = data.frame(
   Mutation2 = character(),
   Codon2 = character(),
@@ -85,6 +86,9 @@ length(Fmx4)
 cat("Procesando ", as.integer(length(fB117)/12), " genomas \n")
 
 nObs = 1
+
+
+# mutacion 1 
 for (i in seq(1,length(fRef),1)){
   if (i==2) next
   anotaciones = attr(fRef[[i]], "Annot") 
@@ -127,10 +131,144 @@ for (i in seq(1,length(fRef),1)){
   }
 }
 
+
+#mutacion 2 
+for (i in seq(1,length(fRef),1)){
+  if (i==2) next
+  anotaciones = attr(fRef[[i]], "Annot") 
+  atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
+  geneName = atributos[which(atributos=="gene")+1] 
+  genRef = ToARN( fRef[[i]] )  
+  genMut = ToARN(fMut2[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
+  cat("#",geneName)
+  for (k in seq(i, length(fMx2), 12)){
+    
+    genfMx2 = ToARN( fMx2[[k]] )  
+    cat(i, k, length(genRef), length(genfMx2), "\n")
+    
+    if (length(genRef) == length(genfMx2)){
+      dif = which(genRef != genfMx2)
+      cat("length",length(dif))
+      print(dif)
+      
+      if (length(dif) > 0){
+        for (x in dif){
+          cat(i,k)
+          muta = paste(genRef[x],"to",genfMx2[x], sep="") 
+          inicioCodon = x - (x-1)%%3 
+          numCodon = as.integer((x-1)/3+1) 
+          codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
+          codonfB117 = paste(genfMx2[inicioCodon], genfMx2[inicioCodon+1], genfMx2[inicioCodon+2],sep="")
+          codonChange = paste(codonOri,"to",codonfMx2, sep="")
+          aminoChange = paste(trad[codonOri],numCodon,trad[codonfMx2], sep="")
+          cat(i,k,geneName, codonChange, aminoChange)
+          
+          if (!is.na(trad[codonfMx2]) && trad[codonOri]!=trad[codonfMx2]){
+            obs = list(muta,codonChange,aminoChange,geneName)
+            df[nObs,] = obs 
+            nObs = nObs+1
+          }
+        }
+      }
+    }else{
+    }
+  }
+}
+
+
+#mutacion 3 
+for (i in seq(1,length(fRef),1)){
+  if (i==2) next
+  anotaciones = attr(fRef[[i]], "Annot") 
+  atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
+  geneName = atributos[which(atributos=="gene")+1] 
+  genRef = ToARN( fRef[[i]] )  
+  genMut = ToARN(fMut3[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
+  cat("#",geneName)
+  for (k in seq(i, length(fMx3), 12)){
+    
+    genfMx3 = ToARN( fMx3[[k]] )  
+    cat(i, k, length(genRef), length(genfMx3), "\n")
+    
+    if (length(genRef) == length(genfMx3)){
+      dif = which(genRef != genfMx3)
+      cat("length",length(dif))
+      print(dif)
+      
+      if (length(dif) > 0){
+        for (x in dif){
+          cat(i,k)
+          muta = paste(genRef[x],"to",genfBMx3[x], sep="") 
+          inicioCodon = x - (x-1)%%3 
+          numCodon = as.integer((x-1)/3+1) 
+          codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
+          codonfB117 = paste(genfMx3[inicioCodon], genfMx3[inicioCodon+1], genfMx3[inicioCodon+2],sep="")
+          codonChange = paste(codonOri,"to",codonfMx3, sep="")
+          aminoChange = paste(trad[codonOri],numCodon,trad[codonfMx3], sep="")
+          cat(i,k,geneName, codonChange, aminoChange)
+          
+          if (!is.na(trad[codonfMx3]) && trad[codonOri]!=trad[codonfMx3]){
+            obs = list(muta,codonChange,aminoChange,geneName)
+            df[nObs,] = obs 
+            nObs = nObs+1
+          }
+        }
+      }
+    }else{
+    }
+  }
+}
+
+
+#mutacion 4
+for (i in seq(1,length(fRef),1)){
+  if (i==2) next
+  anotaciones = attr(fRef[[i]], "Annot") 
+  atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
+  geneName = atributos[which(atributos=="gene")+1] 
+  genRef = ToARN( fRef[[i]] )  
+  genMut = ToARN(fMut4[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
+  cat("#",geneName)
+  for (k in seq(i, length(fB117), 12)){
+    
+    genfMx4 = ToARN( fMx4[[k]] )  
+    cat(i, k, length(genRef), length(genfMx4), "\n")
+    
+    if (length(genRef) == length(genfMx4)){
+      dif = which(genRef != genfMx4)
+      cat("length",length(dif))
+      print(dif)
+      
+      if (length(dif) > 0){
+        for (x in dif){
+          cat(i,k)
+          muta = paste(genRef[x],"to",genfMx4[x], sep="") 
+          inicioCodon = x - (x-1)%%3 
+          numCodon = as.integer((x-1)/3+1) 
+          codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
+          codonfB117 = paste(genfMx4[inicioCodon], genfMx4[inicioCodon+1], genfMx4[inicioCodon+2],sep="")
+          codonChange = paste(codonOri,"to",codonfMx4, sep="")
+          aminoChange = paste(trad[codonOri],numCodon,trad[codonfMx4], sep="")
+          cat(i,k,geneName, codonChange, aminoChange)
+          
+          if (!is.na(trad[codonfMx4]) && trad[codonOri]!=trad[codonfMx4]){
+            obs = list(muta,codonChange,aminoChange,geneName)
+            df[nObs,] = obs 
+            nObs = nObs+1
+          }
+        }
+      }
+    }else{
+    }
+  }
+}
+
+
 head(df)
 nrow(df)
 
 library(ggplot2)
+#
 
 
 # Graficar Mutaciones 1..2..3..4
@@ -144,8 +282,10 @@ p = p + geom_bar(stat = "count")
 p = p + geom_text(stat = "count", vjust=1.5)
 #p = p + facet_grid(~Gene)
 p
-#Hola
-#Dos
+
+
+
+# Graficas:
 
 library(dplyr)
 dfgraph = filter(
@@ -166,6 +306,8 @@ dfgraph = dfgraph[order(-dfgraph$Cuenta), ]
 dfgraph = dfgraph[1:20, ]
 head(dfgraph)
 nrow(dfgraph)
+
+
 
 p2 = ggplot(dfgraph)
 p2 = p2 + aes(x=Amino, y=Cuenta, fill=Amino, label=Cuenta)
