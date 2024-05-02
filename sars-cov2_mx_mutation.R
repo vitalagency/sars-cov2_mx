@@ -66,20 +66,20 @@ df_mut4 = data.frame(
 )
 
 # Sequence Wuhan
-fRef = read.fasta("sequence.txt")
+fRef = read.fasta("mx1_sequence.txt")
 length(fRef)
 
 # Mutaciones México 
-fMx1 = read.fasta("sequence_mexico_primera_2020.txt")
+fMx1 = read.fasta("mx2_sequence.txt")
 length(Fmx1)
 
-fMx2 = read.fasta("sequence_mexico_segunda_2021.txt")
+fMx2 = read.fasta("mx3_sequence.txt")
 length(Fmx2)
 
-fMx3 = read.fasta("sequence_mexico_tercera_2022.txt")
+fMx3 = read.fasta("mx4_sequence.txt")
 length(Fmx3)
 
-fMx4 = read.fasta("sequence_mexico_cuarta_2023.txt")
+fMx4 = read.fasta("mx5_sequence.txt")
 length(Fmx4)
 
 
