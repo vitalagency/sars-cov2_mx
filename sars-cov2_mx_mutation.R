@@ -96,15 +96,14 @@ for (i in seq(1,length(fRef),1)){
   atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
   geneName = atributos[which(atributos=="gene")+1] 
   genRef = ToARN(fRef[[i]])  
-  genMut = ToARN(fMut1[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
   cat("#",geneName)
   for (k in seq(i, length(fB117), 12)){
     
     genfRMx = ToARN( fRef[[k]] )  
-    cat(i, k, length(genRef), length(genfB117), "\n")
+    cat(i, k, length(genRef), length(genfRMx), "\n")
     
-    if (length(genRef) == length(genfB117)){
-      dif = which(genRef != genfB117)
+    if (length(genRef) == length(genfRMx)){
+      dif = which(genRef != genfRMx)
       cat("length",length(dif))
       print(dif)
       
@@ -122,7 +121,7 @@ for (i in seq(1,length(fRef),1)){
           
           if (!is.na(trad[codonfRMx]) && trad[codonOri]!=trad[codonfRMx]){
             obs = list(muta,codonChange,aminoChange,geneName)
-            df[nObs,] = obs 
+            df_mut1[nObs,] = obs 
             nObs = nObs+1
           }
         }
@@ -140,7 +139,6 @@ for (i in seq(1,length(fRef),1)){
   atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
   geneName = atributos[which(atributos=="gene")+1] 
   genRef = ToARN( fRef[[i]] )  
-  genMut = ToARN(fMut2[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
   cat("#",geneName)
   for (k in seq(i, length(fMx2), 12)){
     
@@ -184,7 +182,6 @@ for (i in seq(1,length(fRef),1)){
   atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
   geneName = atributos[which(atributos=="gene")+1] 
   genRef = ToARN( fRef[[i]] )  
-  genMut = ToARN(fMut3[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
   cat("#",geneName)
   for (k in seq(i, length(fMx3), 12)){
     
@@ -228,7 +225,6 @@ for (i in seq(1,length(fRef),1)){
   atributos = unlist(strsplit(anotaciones,"\\[|\\]|:|=|\\.|\\(")); 
   geneName = atributos[which(atributos=="gene")+1] 
   genRef = ToARN( fRef[[i]] )  
-  genMut = ToARN(fMut4[[i]]) # fMut2[[i]], fMut3[[i]], fMut4[[i]]) Para las demás mutaciones
   cat("#",geneName)
   for (k in seq(i, length(fB117), 12)){
     
