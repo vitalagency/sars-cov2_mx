@@ -66,24 +66,24 @@ df_mut4 = data.frame(
 )
 
 # Sequence Wuhan
-fRef = read.fasta("mx1_sequence.txt")
+fRef = read.fasta("mx1_sequence")
 length(fRef)
 
 # Mutaciones México 
-fMx1 = read.fasta("mx2_sequence.txt")
-length(Fmx1)
+fMx1 = read.fasta("mx2_sequence")
+length(fMx1)
 
-fMx2 = read.fasta("mx3_sequence.txt")
-length(Fmx2)
+fMx2 = read.fasta("mx3_sequence")
+length(fMx2)
 
-fMx3 = read.fasta("mx4_sequence.txt")
-length(Fmx3)
+fMx3 = read.fasta("mx4_sequence")
+length(fMx3)
 
-fMx4 = read.fasta("mx5_sequence.txt")
-length(Fmx4)
+fMx4 = read.fasta("mx5_sequence")
+length(fMx4)
 
 
-cat("Procesando ", as.integer(length(fB117)/12), " genomas \n")
+cat("Procesando ", as.integer(length(fRef)/12), " genomas \n")
 
 nObs = 1
 
@@ -99,7 +99,7 @@ for (i in seq(1,length(fRef),1)){
   cat("#",geneName)
   for (k in seq(i, length(fB117), 12)){
     
-    genfB117 = ToARN( fB117[[k]] )  
+    genfB117 = ToARN( fRef[[k]] )  
     cat(i, k, length(genRef), length(genfB117), "\n")
     
     if (length(genRef) == length(genfB117)){
