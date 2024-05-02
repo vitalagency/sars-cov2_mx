@@ -144,6 +144,7 @@ p = p + geom_bar(stat = "count")
 p = p + geom_text(stat = "count", vjust=1.5)
 #p = p + facet_grid(~Gene)
 p
+#Hola
 
 library(dplyr)
 dfgraph = filter(
