@@ -66,12 +66,12 @@ df_mut4 = data.frame(
 )
 
 
-# Sequence Wuhan
+# Primera secuencia México
 fRef = read.fasta("mx1_sequence")
 length(fRef)
 
-# Mutaciones México 
-fMx1 = read.fasta("mx2_sequence")
+# Mutaciones México
+fMx = read.fasta("mx2_sequence")
 length(fMx1)
 
 fMx2 = read.fasta("mx3_sequence")
@@ -97,7 +97,7 @@ for (i in seq(1,length(fRef),1)){
   geneName = atributos[which(atributos=="gene")+1] 
   genRef = ToARN(fRef[[i]])  
   cat("#",geneName)
-  for (k in seq(i, length(fB117), 12)){
+  for (k in seq(i, length(fRef), 12)){
     
     genfRMx = ToARN( fRef[[k]] )  
     cat(i, k, length(genRef), length(genfRMx), "\n")
@@ -157,7 +157,7 @@ for (i in seq(1,length(fRef),1)){
           inicioCodon = x - (x-1)%%3 
           numCodon = as.integer((x-1)/3+1) 
           codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
-          codonfB117 = paste(genfMx2[inicioCodon], genfMx2[inicioCodon+1], genfMx2[inicioCodon+2],sep="")
+          codonfMx2 = paste(genfMx2[inicioCodon], genfMx2[inicioCodon+1], genfMx2[inicioCodon+2],sep="")
           codonChange = paste(codonOri,"to",codonfMx2, sep="")
           aminoChange = paste(trad[codonOri],numCodon,trad[codonfMx2], sep="")
           cat(i,k,geneName, codonChange, aminoChange)
@@ -196,7 +196,7 @@ for (i in seq(1,length(fRef),1)){
       if (length(dif) > 0){
         for (x in dif){
           cat(i,k)
-          muta = paste(genRef[x],"to",genfBMx3[x], sep="") 
+          muta = paste(genRef[x],"to",genfMx3[x], sep="") 
           inicioCodon = x - (x-1)%%3 
           numCodon = as.integer((x-1)/3+1) 
           codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
@@ -207,7 +207,7 @@ for (i in seq(1,length(fRef),1)){
           
           if (!is.na(trad[codonfMx3]) && trad[codonOri]!=trad[codonfMx3]){
             obs = list(muta,codonChange,aminoChange,geneName)
-            df[nObs,] = obs 
+            df_mut3[nObs,] = obs 
             nObs = nObs+1
           }
         }
@@ -226,7 +226,7 @@ for (i in seq(1,length(fRef),1)){
   geneName = atributos[which(atributos=="gene")+1] 
   genRef = ToARN( fRef[[i]] )  
   cat("#",geneName)
-  for (k in seq(i, length(fB117), 12)){
+  for (k in seq(i, length(fMx4), 12)){
     
     genfMx4 = ToARN( fMx4[[k]] )  
     cat(i, k, length(genRef), length(genfMx4), "\n")
@@ -250,7 +250,7 @@ for (i in seq(1,length(fRef),1)){
           
           if (!is.na(trad[codonfMx4]) && trad[codonOri]!=trad[codonfMx4]){
             obs = list(muta,codonChange,aminoChange,geneName)
-            df[nObs,] = obs 
+            df_mut4[nObs,] = obs 
             nObs = nObs+1
           }
         }
