@@ -85,6 +85,10 @@ length(fMx4)
 
 
 cat("Procesando ", as.integer(length(fRef)/12), " genomas \n")
+cat("Procesando ", as.integer(length(fMx1)/12), " genomas \n")
+cat("Procesando ", as.integer(length(fMx2)/12), " genomas \n")
+cat("Procesando ", as.integer(length(fMx3)/12), " genomas \n")
+cat("Procesando ", as.integer(length(fMx4)/12), " genomas \n")
 
 nObs = 1
 
@@ -114,7 +118,7 @@ for (i in seq(1,length(fRef),1)){
           inicioCodon = x - (x-1)%%3 
           numCodon = as.integer((x-1)/3+1) 
           codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
-          codonfRMx = paste(genfRMx[inicioCodon], genfRMx[inicioCodon+1], genfRMx[inicioCodon+2],sep="")
+          codonfMx1 = paste(genfRMx[inicioCodon], genfRMx[inicioCodon+1], genfRMx[inicioCodon+2],sep="")
           codonChange = paste(codonOri,"to",codonfRMx, sep="")
           aminoChange = paste(trad[codonOri],numCodon,trad[codonfRMx], sep="")
           cat(i,k,geneName, codonChange, aminoChange)
@@ -200,7 +204,7 @@ for (i in seq(1,length(fRef),1)){
           inicioCodon = x - (x-1)%%3 
           numCodon = as.integer((x-1)/3+1) 
           codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
-          codonfB117 = paste(genfMx3[inicioCodon], genfMx3[inicioCodon+1], genfMx3[inicioCodon+2],sep="")
+          codonfMx3 = paste(genfMx3[inicioCodon], genfMx3[inicioCodon+1], genfMx3[inicioCodon+2],sep="")
           codonChange = paste(codonOri,"to",codonfMx3, sep="")
           aminoChange = paste(trad[codonOri],numCodon,trad[codonfMx3], sep="")
           cat(i,k,geneName, codonChange, aminoChange)
@@ -243,7 +247,7 @@ for (i in seq(1,length(fRef),1)){
           inicioCodon = x - (x-1)%%3 
           numCodon = as.integer((x-1)/3+1) 
           codonOri = paste(genRef[inicioCodon], genRef[inicioCodon+1], genRef[inicioCodon+2],sep="")
-          codonfB117 = paste(genfMx4[inicioCodon], genfMx4[inicioCodon+1], genfMx4[inicioCodon+2],sep="")
+          codonfMx4 = paste(genfMx4[inicioCodon], genfMx4[inicioCodon+1], genfMx4[inicioCodon+2],sep="")
           codonChange = paste(codonOri,"to",codonfMx4, sep="")
           aminoChange = paste(trad[codonOri],numCodon,trad[codonfMx4], sep="")
           cat(i,k,geneName, codonChange, aminoChange)
