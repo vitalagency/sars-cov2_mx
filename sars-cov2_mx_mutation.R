@@ -54,10 +54,10 @@ df2023_2024 = data.frame(
 )
 
 
-ref_2020 = read.fasta("sequence_mexico_primera.txt")
+ref_2020 = read.fasta("ref_2020.txt")
 length(ref_2020)
 
-ref_2021 = read.fasta("ref_2022")
+ref_2021 = read.fasta("ref_2022.txt")
 length(ref_2021)
 
 ## Secuencias 2022 - 2024
