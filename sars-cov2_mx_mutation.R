@@ -60,7 +60,6 @@ length(ref_2020)
 ref_2021 = read.fasta("ref_2022.txt")
 length(ref_2021)
 
-## Secuencias 2022 - 2024
 ref_2022 = read.fasta("ref_2022")
 length(ref_2022)
 
