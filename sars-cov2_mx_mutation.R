@@ -274,7 +274,7 @@ for (i in seq(1,length(ref_2023),1)){
           aminoChange = paste(trad[codonOri],numCodon,trad[codonref_2023], sep="")
           cat(i,k,geneName, codonChange, aminoChange)
           
-          if (!is.na(trad[codonref_2024]) && trad[codonOri]!=trad[codonref_2024]){
+          if (!is.na(trad[codonref_2024]) && !is.na(trad[codonOri]) && trad[codonOri]!=trad[codonref_2024]){
             obs4 = list(muta,codonChange,aminoChange,geneName)
             df2023_2024[nObs2023_2024,] = obs4
             nObs2023_2024 = nObs2023_2024+1
@@ -340,7 +340,59 @@ p2 = p2 + geom_text(stat = "identity", vjust = 1.5)
 p2 = p2 + facet_wrap(~ Gene, scales = "free", space = "free_x")
 p2 = p2 + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 p2
-##
-## 2020 --> 2021 Plot
-##
 
+##
+## 2020 --> 2021 Plot END
+##
+## ------------------------------------------------------------------------------------------------
+##
+## 2021 --> 2022 Plot Start
+##
+p = ggplot(df2021_2022)
+p = p + aes(x=Mutation, fill=Mutation, label=after_stat(count))
+p = p + ggtitle("Mutaciones de sustitución México 2021 - 2022")
+p = p + labs(x="Mutation", y="Frecuencia", fill="Frecuencia")
+p = p + geom_bar(stat = "count")
+p = p + geom_text(stat = "count", vjust=1.5)
+p = p + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+p
+
+df2021_2022gr = filter(
+  summarise(
+    select(
+      group_by(df2021_2022, Amino),
+      Mutation:Gene
+    ),
+    Mutation = first(Mutation),
+    Codon = first(Codon),
+    Gene = first(Gene),
+    Cuenta = n()
+  ),
+  Cuenta>1
+)
+
+df2021_2022gr = df2021_2022 %>%
+  filter(!is.na(Amino)) %>%
+  group_by(Amino) %>%
+  summarise(
+    mutation2 = first(Mutation),
+    Codon = first(Codon),
+    Gene = first(Gene),
+    Cuenta = n()
+  ) %>%
+  filter(Cuenta > 1) %>%
+  arrange(desc(Cuenta)) %>%
+  slice(1:20)
+
+head(df2021_2022gr)
+nrow(df2021_2022gr)
+
+p2 = ggplot(df2021_2022gr)
+p2 = p2 + aes(x = Amino, y = Cuenta, fill = Amino, label = Cuenta)
+p2 = p2 + ggtitle("Cambio de Aminoácidos México 2021 - 2022")
+p2 = p2 + labs(x = "Amino", y = "Frecuencia", fill = "Frecuencia")
+p2 = p2 + geom_bar(stat = "identity")
+p2 = p2 + geom_text(stat = "identity", vjust = 1.5)
+p2 = p2 + facet_wrap(~ Gene, scales = "free", space = "free_x")
+p2 = p2 + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+p2
