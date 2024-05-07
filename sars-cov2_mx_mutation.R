@@ -32,7 +32,7 @@ trad =    c(UUU="F", UUC="F", UUA="L", UUG="L",
 
 ## ------------------------------------------------------------------------------------------------
 
-## To ARN Función
+## To ARN Function
 
 ToARN = function(input) {
   newARN = as.vector(input)
@@ -200,6 +200,8 @@ for (i in seq(1,length(ref_2021),1)){
 ##
 ## 2022 - 2023 Start
 ##
+cat("Procesando ", as.integer(length(ref_2022)/12), " genomas de Primera Secuencia 2022 y Primera Secuencia 2023 \n")
+
 nObs2022_2023 = 1
 for (i in seq(1,length(ref_2022),1)){
   if (i==2) next
@@ -246,6 +248,9 @@ for (i in seq(1,length(ref_2022),1)){
 ##
 ## 2023 - 2024 Start
 ##
+
+cat("Procesando ", as.integer(length(ref_2023)/12), " genomas de Primera Secuencia 2023 y Primera Secuencia 2024 \n")
+
 nObs2023_2024 = 1
 for (i in seq(1,length(ref_2023),1)){
   if (i==2) next
